@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flickr API Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Add some basic styling to the images */
+    img {
+      width: 500px;
+      height: 500px;
+      padding: 50px;
+      object-fit: "container-fluid";
+      margin: 50px;
+      margin-left: 35%;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex justify-center ">
+    <nav class="self-center w-full max-w-7xl  ">
+        <div class="flex flex-col  justify-around items-center md:items-start border-b-2">
+            <h1 class="uppercase py-4 text-2xl font-sans font-bold px-10">Flickr api </h1>
+            <ul class="flex  items-center text-sm md:text-[18px] font-bold  md:px-10">
+                <li
+                    class="hover:underline  underline-offset-4 decoration-2 decoration-cyan-500 py-2 rounded-lg px-2 md:px-5">
+                    <a href="#">Home</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+</div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.tailwindcss.com"></script>
+  <h1 style="font-size: xx-large; font-weight:bold; text-align:center">Recent Photos from Flickr</h1>
+  <div id="photo-container" class:"container-fluid" "></div> <!-- Create a container for the photos -->
+  <script>
+    // Add the JavaScript code to retrieve and display the photos
+    const endpointUrl = "https://api.flickr.com/services/rest";
+    const apiKey = "d7ad27bfed2e61d94d1a55c475a45dd6";
+    const method = "flickr.photos.getRecent&per_page=20&page=1&api_key=6f102c62f41998d151e5a1b48713cf13&format=json&nojsoncallback=1&extras=url_s";
+    const perPage = 20;
+
+    fetch(`${endpointUrl}?method=${method}&api_key=${apiKey}&per_page=${perPage}&format=json&nojsoncallback=1`)
+      .then(response => response.json())
+      .then(data => {
+        const photos = data.photos.photo;
+        const container = document.getElementById("photo-container"); // Get the container element
+        photos.forEach(photo => {
+          const imageUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
+          const imageElement = document.createElement("img");
+          imageElement.src = imageUrl;
+          container.appendChild(imageElement); // Add the image to the container
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+            <div
+                class="md:flex hidden bg-gray-900 p-3 flex-col text-center pt-5 space-y-8 md:flex-row md:justify-between md:space-y-0">
+                <div
+                    class="flex mx-3 justify-between space-x-20 md:flex-row text-gray-200 md:space-x-28 md:ml-20 lg:ml-24 lg:space-x-[13rem] xl:space-x-72 xl:ml-24">
+                    <p>@ Copyright <strong>Company.</strong>All Rights Reserved</p>
+                    <p>Designed by <span class="text-blue-600">Harsh Sharma</span></p>
+                </div>
+                <div
+                    class="text-white pb-4 text-center text-xl space-x-2 md:w-2/4 md:pb-0 md:pl-2 md:space-x-1 lg:pl-[171px] lg:space-x-2 xl:pl-44">
+                    <a href="#"
+                        class="w-8 h-8 bg-orange-500 hover:text-orange-500 inline-block rounded-full pt-[3px] hover:bg-gray-200"><i
+                            class="fa fa-twitter"></i></a> <a href="#"
+                        class="w-8 h-8 bg-orange-500 hover:text-orange-500 inline-block rounded-full pt-[3px] hover:bg-gray-200"><i
+                            class="fa fa-instagram"></i></a> <a href="#"
+                        class="w-8 h-8 bg-orange-500 hover:text-orange-500 inline-block rounded-full pt-[3px] hover:bg-gray-200"><i
+                            class="fa fa-facebook"></i></a> <a href="#"
+                        class="w-8 h-8 bg-orange-500 hover:text-orange-500 inline-block rounded-full pt-[3px] hover:bg-gray-200"><i
+                            class="fa fa-google"></i></a> <a href="#"
+                        class="w-8 h-8 bg-orange-500 hover:text-orange-500 inline-block rounded-full pt-[3px] hover:bg-gray-200"><i
+                            class="fa fa-linkedin"></i></a> </div>
+            </div>
+        </div>
+    </div>
+    </div> 
+</body>
+</html>
